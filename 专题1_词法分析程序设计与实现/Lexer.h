@@ -6,14 +6,17 @@
 #include <cstring>
 #include <cstdio>
 #include <string>
-#include <map>
+#include <set>
 using namespace std;
-const int MAXN = 255;
+typedef pair<int, string> PIS;
+const int MAXLEN = 10000;
+const int LINEMAXLEN = 255;
+const int WORDMAXLEN = 15;
+const int PRECISION = 15;
 
-string keyword[9] = { "void", "int", "float", "double", "if", "else", "for", "do", "while" };
-string errmsg;
-map<string, string> mpTable;
+extern string errmsg;
+extern vector<PIS> vTable;
 
-bool lineAnalyse( string line, int &colNo );
+bool lineAnalyse( string &line, int &colNo );
 
-#endif
+#endif // LEXER

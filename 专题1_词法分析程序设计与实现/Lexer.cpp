@@ -1,7 +1,8 @@
 #include "Lexer.h"
 
 bool isTerminalStage( int stage ) {
-	if( stage == 0 || stage == 12 || stage == 14 ) return false;
+	if( stage == 0 || stage == 6 || stage == 7 ||
+		stage == 13 || stage == 14 || stage == 16 ) return false;
 	return true;
 }
 
@@ -33,30 +34,12 @@ int characterType( char ch ) {
 	return -1;
 }
 
+bool check( string str ) {
+	return true;
+}
+
 bool stage_0( int &stage, int chtype ) {
 	bool flag = true;
-	switch( chtype ) {
-		case -1:
-			stage = -1;
-			flag = false;
-			errmsg = "Invalid character!";
-			break;
-		case 0: stage = 0; break;
-		case 1: case 2: case 3: case 4: case 5: stage = 1; break;
-		case 8: stage = 5; break;
-		case 6: case 7: stage = 7; break;
-		case 9: stage = 10; break;
-		case 10: stage = 12; break;
-		case 11: stage = 14; break;
-		case 12: stage = 16; break;
-		case 13: stage = 17; break;
-		case 14: stage = 18; break;
-		case 15: stage = 19; break;
-		case 16: stage = 20; break;
-		case 17: stage = 21; break;
-	}
-	if( 28 <= chtype && chtype <= 70 ) stage = 22;
-	if( 18 <= chtype && chtype <= 27 ) stage = 23;
 	return flag;
 }
 
@@ -82,19 +65,9 @@ bool excute( int &stage, char ch, string &str ) {
 		case 15: flag = stage_15( stage, chtype ); break;
 		case 16: flag = stage_16( stage, chtype ); break;
 		case 17: flag = stage_17( stage, chtype ); break;
-		case 18: flag = stage_18( stage, chtype ); break;
-		case 19: flag = stage_19( stage, chtype ); break;
-		case 20: flag = stage_20( stage, chtype ); break;
-		case 21: flag = stage_21( stage, chtype ); break;
-		case 22: flag = stage_22( stage, chtype ); break;
-		case 23: flag = stage_23( stage, chtype ); break;
 		default: flag = false;
 	}
 	return flag;
-}
-
-bool check( string str ) {
-	return true;
 }
 
 bool lineAnalyse( string line, int &colNo ) {

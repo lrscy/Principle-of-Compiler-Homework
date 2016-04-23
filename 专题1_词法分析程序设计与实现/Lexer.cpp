@@ -95,6 +95,10 @@ void check( string str ) {
     else if( str == "while" )  vTable.push_back( make_pair( 39, "-" ) );
     else if( ( 'a' <= str[0] && str[0] <= 'z' ) ||
             ( 'A' <= str[0] && str[0] <= 'Z' ) ) {
+        for( int i = 0; i < str.length(); ++i ) {
+            if( 'A' <= str[i] && str[i] <= 'Z' )
+                str[i] += 'a' - 'A';
+        }
         vTable.push_back( make_pair( 40, str ) );
     } else {
         double a;

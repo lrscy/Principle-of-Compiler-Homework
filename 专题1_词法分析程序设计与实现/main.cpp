@@ -7,7 +7,7 @@ vector<PIS> vTable;
 void getOutputName( char *inputName, char *outputName ) {
     int len = strlen( inputName );
     strcpy( outputName, inputName );
-    while( outputName[len - 1] != '.' ) --len;
+    while( outputName[--len] != '.' && len > 0 );
     if( len == 0 ) outputName[len] = 'a';
     outputName[len] = 0;
     strcat( outputName, ".lexer" );
@@ -60,9 +60,13 @@ bool noteProcess( string &str, bool &noteflag ) {
     return true;
 }
 
-void print() {
-    for( int i = 0; i < vTable.size(); ++i ) {
-        printf( "( %d, %s )\n", vTable[i].first, vTable[i].second.c_str() );
+void print( bool flag, FILE *fp ) {
+    if( !flag ) fprintf( fp, "Syntax Error.\n" );
+    else {
+        fprintf( fp, "Program OK.\n" );
+        for( int i = 0; i < vTable.size(); ++i ) {
+            fprintf( fp, "( %d, %s )\n", vTable[i].first, vTable[i].second.c_str() );
+        }
     }
     return ;
 }
@@ -93,7 +97,8 @@ int main( int argc, char **argv ) {
         errmsg = "/* cannot be mateched.";
         errMsg( argv[1], rowNo + 1, colNo + 1 );
     }
-    if( flag ) { puts( "Program OK." ); print(); }
-    else puts( "Syntax Error." );
+    fclose( fp );
+    fp = fopen( outputName, "w+" );
+    print( flag, fp );
     return 0;
 }

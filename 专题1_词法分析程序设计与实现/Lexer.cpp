@@ -191,6 +191,7 @@ bool stage_11( int &stage, int chtype ) {
     if( chtype == 32 || chtype == 58 ) stage = 13;
     else if( chtype == 18 ) stage = 12;
     else if( 19 <= chtype && chtype <= 28 ) stage = 11;
+    else if( chtype == 14 ) stage = 17;
     else return false;
     return true;
 }
@@ -198,6 +199,7 @@ bool stage_11( int &stage, int chtype ) {
 bool stage_12( int &stage, int chtype ) {
     if( chtype == 32 || chtype == 58 ) stage = 13;
     else if( 19 <= chtype && chtype <= 28 ) stage = 12;
+    else if( chtype == 14 ) stage = 17;
     else return false;
     return true;
 }
@@ -277,7 +279,7 @@ bool lineAnalyse( string &line, int &colNo ) {
             return false;
         }
         check( str );
-        stage = 0;
+        stage = 0; str = "";
     }
     return true;
 }

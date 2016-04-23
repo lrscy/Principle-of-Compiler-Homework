@@ -60,6 +60,13 @@ bool noteProcess( string &str, bool &noteflag ) {
     return true;
 }
 
+void print() {
+    for( int i = 0; i < vTable.size(); ++i ) {
+        printf( "( %d, %s )\n", vTable[i].first, vTable[i].second.c_str() );
+    }
+    return ;
+}
+
 int main( int argc, char **argv ) {
     char line[LINEMAXLEN], outputName[LINEMAXLEN];
     int rowNo, colNo;
@@ -86,7 +93,7 @@ int main( int argc, char **argv ) {
         errmsg = "/* cannot be mateched.";
         errMsg( argv[1], rowNo + 1, colNo + 1 );
     }
-    if( flag ) puts( "Program OK." );
+    if( flag ) { puts( "Program OK." ); print(); }
     else puts( "Syntax Error." );
     return 0;
 }

@@ -35,14 +35,15 @@ int characterType( char ch ) {
     return -1;
 }
 
-void dtob( int d, string &str ) {
-    int a = ( int )d, cnt = 0;
-    d = d - a;
+void dtob( double d, string &str ) {
+    int a, cnt = 0, flag = 0;
+    if( d < 0 ) { d = -d; flag = 1; }
+    str = "";
+    a = ( int )d; d = d - a;
     while( a ) {
         str = ( char )( ( a & 1 ) + '0' ) + str;
         a >>= 1;
     }
-    reverse( str.begin(), str.end() );
     str += ".";
     while( cnt < PRECISION ) {
         d = d * 2;
@@ -50,6 +51,8 @@ void dtob( int d, string &str ) {
         str += a + '0';
         ++cnt;
     }
+    if( flag ) str = "1" + str;
+    else str = "0" + str;
     return ;
 }
 
@@ -103,8 +106,6 @@ void addPair( string str, vector<PIS> &vTable ) {
     } else {
         double a;
         sscanf( str.c_str(), "(%lf)", &a );
-        if( a < 0 ) { str = "1"; a = -a; }
-        else str = "0";
         dtob( a, str );
         vTable.push_back( make_pair( 41, str ) );
     }

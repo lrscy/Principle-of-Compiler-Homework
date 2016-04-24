@@ -48,6 +48,7 @@ void dtob( double d, string &str ) {
     while( cnt < PRECISION ) {
         d = d * 2;
         a = ( int )d;
+        d -= a;
         str += a + '0';
         ++cnt;
     }
@@ -193,7 +194,7 @@ bool stage_10( int &stage, int chtype ) {
 }
 
 bool stage_11( int &stage, int chtype ) {
-    if( chtype == 32 || chtype == 58 ) stage = 13;
+    if( chtype == 33 || chtype == 59 ) stage = 13;
     else if( chtype == 18 ) stage = 12;
     else if( 19 <= chtype && chtype <= 28 ) stage = 11;
     else if( chtype == 14 ) stage = 17;
@@ -202,7 +203,7 @@ bool stage_11( int &stage, int chtype ) {
 }
 
 bool stage_12( int &stage, int chtype ) {
-    if( chtype == 32 || chtype == 58 ) stage = 13;
+    if( chtype == 33 || chtype == 59 ) stage = 13;
     else if( 19 <= chtype && chtype <= 28 ) stage = 12;
     else if( chtype == 14 ) stage = 17;
     else return false;

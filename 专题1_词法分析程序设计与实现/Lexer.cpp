@@ -53,7 +53,7 @@ void dtob( int d, string &str ) {
     return ;
 }
 
-void check( string str ) {
+void addPair( string str, vector<PIS> &vTable ) {
     if( str == "+" )       vTable.push_back( make_pair( 1, "-" ) );
     else if( str == "-" )  vTable.push_back( make_pair( 2, "-" ) );
     else if( str == "*" )  vTable.push_back( make_pair( 3, "-" ) );
@@ -265,7 +265,7 @@ bool excute( int &stage, char ch ) {
     return flag;
 }
 
-bool lineAnalyse( string &line, int &colNo ) {
+bool lineAnalyse( string &line, int &colNo, string &errmsg, vector<PIS> &vTable ) {
     int stage = 0, st = 0, prestage = 0, len = line.length();
     bool flag = true;
     string str = "";
@@ -282,7 +282,7 @@ bool lineAnalyse( string &line, int &colNo ) {
             errmsg = str + " is illegal.";
             return false;
         }
-        check( str );
+        addPair( str, vTable );
         stage = 0; str = "";
     }
     return true;

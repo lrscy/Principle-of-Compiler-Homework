@@ -1,9 +1,5 @@
 #include "lexer.h"
 
-string errmsg;
-vector<PIS> vTable;
-
-
 void getOutputName( char *inputName, char *outputName ) {
     int len = strlen( inputName );
     strcpy( outputName, inputName );
@@ -14,7 +10,7 @@ void getOutputName( char *inputName, char *outputName ) {
     return ;
 }
 
-void errMsg( string filename, int rowNo, int colNo ) {
+void errMsg( string filename, int rowNo, int colNo, string errmsg ) {
     printf( "%s:%d:%d error: %s\n", filename.c_str(), rowNo, colNo, errmsg.c_str() );
     return ;
 }
@@ -28,7 +24,7 @@ void spaceProcess( char *line ) {
     return ;
 }
 
-bool noteProcess( string &str, bool &noteflag ) {
+bool noteProcess( string &str, bool &noteflag, string &errmsg ) {
     while( true ) {
         int p1 = str.find( "//" );
         int p2 = str.find( "/*" );
@@ -60,7 +56,7 @@ bool noteProcess( string &str, bool &noteflag ) {
     return true;
 }
 
-void print( FILE *fp ) {
+void print( FILE *fp, vector<PIS> &vTable ) {
     for( int i = 0; i < vTable.size(); ++i ) {
         fprintf( fp, "( %d, %s )\n", vTable[i].first, vTable[i].second.c_str() );
     }
@@ -71,8 +67,17 @@ int main( int argc, char **argv ) {
     char line[LINEMAXLEN], outputName[LINEMAXLEN];
     int rowNo, colNo;
     bool flag = true, noteflag = false;
+    FILE *finp, *foutp;
+    string errmsg;
+    vector<PIS> vTable;
+    
     getOutputName( argv[1], outputName );
-    FILE *finp = fopen( argv[1], "r" ), *foutp = fopen( outputName, "a+" );
+    finp = fopen( argv[1], "r" );
+    foutp = fopen( outputName, "w" );
+    fclose( foutp );
+    foutp = fopen( outputName, "a+" );
+    getOutputName( argv[1], outputName );
+
     rowNo = 0;
     while( NULL != fgets( line, MAXLEN, finp ) ) {
         vTable.clear();
@@ -82,18 +87,22 @@ int main( int argc, char **argv ) {
         colNo = 0;
         string str = line;
         str = str.substr( 0, LINEMAXLEN );
-        if( !noteProcess( str, noteflag ) ||
-                ( str.length() > 0 && !lineAnalyse( str, colNo ) ) ) {
-            errMsg( argv[1], rowNo + 1, colNo + 1 );
+        if( !noteProcess( str, noteflag, errmsg ) ||
+                ( str.length() > 0 && !lineAnalyse( str, colNo, errmsg, vTable ) ) ) {
+            flag = false;
+            errMsg( argv[1], rowNo + 1, colNo + 1, errmsg );
         }
-        print( foutp );
+        print( foutp, vTable );
         ++rowNo;
     }
     if( noteflag ) {
         colNo = 0;
         flag = false;
         errmsg = "/* cannot be mateched.";
-        errMsg( argv[1], rowNo + 1, colNo + 1 );
+        errMsg( argv[1], rowNo + 1, colNo + 1, errmsg );
+    }
+
+    if( !flag ) {
         fclose( foutp );
         foutp = fopen( outputName, "w" );
         printf( "Syntax Error.\n" );

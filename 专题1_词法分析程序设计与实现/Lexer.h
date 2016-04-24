@@ -14,9 +14,6 @@ const int LINEMAXLEN = 255;
 const int WORDMAXLEN = 15;
 const int PRECISION = 15;
 
-extern string errmsg;
-extern vector<PIS> vTable;
-
-bool lineAnalyse( string &line, int &colNo );
+bool lineAnalyse( string &line, int &colNo, string &errmsg, vector<PIS> &vTable );
 
 #endif // LEXER

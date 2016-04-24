@@ -60,13 +60,9 @@ bool noteProcess( string &str, bool &noteflag ) {
     return true;
 }
 
-void print( bool flag, FILE *fp ) {
-    if( !flag ) fprintf( fp, "Syntax Error.\n" );
-    else {
-        fprintf( fp, "Program OK.\n" );
-        for( int i = 0; i < vTable.size(); ++i ) {
-            fprintf( fp, "( %d, %s )\n", vTable[i].first, vTable[i].second.c_str() );
-        }
+void print( FILE *fp ) {
+    for( int i = 0; i < vTable.size(); ++i ) {
+        fprintf( fp, "( %d, %s )\n", vTable[i].first, vTable[i].second.c_str() );
     }
     return ;
 }
@@ -75,10 +71,11 @@ int main( int argc, char **argv ) {
     char line[LINEMAXLEN], outputName[LINEMAXLEN];
     int rowNo, colNo;
     bool flag = true, noteflag = false;
-    FILE *fp = fopen( argv[1], "r" );
     getOutputName( argv[1], outputName );
+    FILE *finp = fopen( argv[1], "r" ), *foutp = fopen( outputName, "a+" );
     rowNo = 0;
-    while( NULL != fgets( line, MAXLEN, fp ) ) {
+    while( NULL != fgets( line, MAXLEN, finp ) ) {
+        vTable.clear();
         int len = strlen( line );
         if( line[len - 1] == '\n' ) line[len - 1] = 0;
         spaceProcess( line );
@@ -89,6 +86,7 @@ int main( int argc, char **argv ) {
                 ( str.length() > 0 && !lineAnalyse( str, colNo ) ) ) {
             errMsg( argv[1], rowNo + 1, colNo + 1 );
         }
+        print( foutp );
         ++rowNo;
     }
     if( noteflag ) {
@@ -96,9 +94,12 @@ int main( int argc, char **argv ) {
         flag = false;
         errmsg = "/* cannot be mateched.";
         errMsg( argv[1], rowNo + 1, colNo + 1 );
+        fclose( foutp );
+        foutp = fopen( outputName, "w" );
+        printf( "Syntax Error.\n" );
+    } else {
+        printf( "Program OK.\n" );
     }
-    fclose( fp );
-    fp = fopen( outputName, "w+" );
-    print( flag, fp );
+    fclose( finp ); fclose( foutp );
     return 0;
 }

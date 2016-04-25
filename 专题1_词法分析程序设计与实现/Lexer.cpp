@@ -106,7 +106,7 @@ void addPair( string str, vector<PIS> &vTable ) {
         vTable.push_back( make_pair( 40, str ) );
     } else {
         double a;
-        sscanf( str.c_str(), "(%lf)", &a );
+        sscanf( str.c_str(), "%lf", &a );
         dtob( a, str );
         vTable.push_back( make_pair( 41, str ) );
     }
@@ -254,12 +254,13 @@ bool lineAnalyse( string &line, int &colNo, string &errmsg, vector<PIS> &vTable 
     char prech;
     string str = "";
     while( colNo < len ) {
-        st = colNo; prestage = -1;
+        st = colNo; prestage = -1; prech = ' ';
         while( colNo <= len && colNo - st + 1 <= WORDMAXLEN ) {
             prestage = stage;
             flag = excute( stage, line[colNo] );
             if( !flag ) break;
             str += line[colNo];
+            prech = line[colNo];
             ++colNo;
         }
         if( !isTerminalStage( prestage ) && !characterType( prech ) ) {

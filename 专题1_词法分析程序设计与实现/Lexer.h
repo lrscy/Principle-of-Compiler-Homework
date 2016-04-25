@@ -6,6 +6,7 @@
 #include <cstring>
 #include <cstdio>
 #include <string>
+#include <vector>
 #include <set>
 using namespace std;
 typedef pair<int, string> PIS;

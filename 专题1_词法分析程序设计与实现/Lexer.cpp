@@ -1,13 +1,13 @@
 #include "lexer.h"
 
 bool isTerminalStage( int stage ) {
-    if( stage == 0 || stage == 4 || stage == 5 || stage == 10 ||
-        stage == 13 || stage == 14 || stage == 16 ) return false;
+    if( stage == 0 || stage == 4 || stage == 5 ||
+        stage == 11 || stage == 12 || stage == 14 ) return false;
     return true;
 }
 
 int characterType( char ch ) {
-    if( ch == ' ' || ch == '\n' || ch == 0 ) return 0;
+    if( ch == '\t' || ch == ' ' || ch == '\n' || ch == 0 ) return 0;
     switch( ch ) {
         case '+': return 1;
         case '-': return 2;
@@ -124,38 +124,39 @@ bool stage_0( int &stage, int chtype ) {
     else if( 29 <= chtype && chtype <= 80 ) stage = 6;
     else if( chtype == 1 )  stage = 7;
     else if( chtype == 2 )  stage = 8;
-    else if( chtype == 13 ) stage = 9;
-    else if( chtype == 12 || ( 14 <= chtype && chtype <= 17 ) ) stage = 17;
+    else if( 19 <= chtype && chtype <= 28 ) stage = 9;
+    else if( chtype == 18 ) stage = 14;
+    else if( 12 <= chtype && chtype <= 17 ) stage = 15;
     else return false;
     return true;
 }
 
 bool stage_1( int &stage, int chtype ) {
-    if( chtype == 8 ) stage = 17;
+    if( chtype == 8 ) stage = 15;
     else return false;
     return true;
 }
 
 bool stage_2( int &stage, int chtype ) {
-    if( chtype == 6 || chtype == 8 ) stage = 17;
+    if( chtype == 6 || chtype == 8 ) stage = 15;
     else return false;
     return true;
 }
 
 bool stage_3( int &stage, int chtype ) {
-    if( chtype == 7 || chtype == 8 ) stage = 17;
+    if( chtype == 7 || chtype == 8 ) stage = 15;
     else return false;
     return true;
 }
 
 bool stage_4( int &stage, int chtype ) {
-    if( chtype == 10 ) stage = 17;
+    if( chtype == 10 ) stage = 15;
     else return false;
     return true;
 }
 
 bool stage_5( int &stage, int chtype ) {
-    if( chtype == 11 ) stage = 17;
+    if( chtype == 11 ) stage = 15;
     else return false;
     return true;
 }
@@ -167,76 +168,58 @@ bool stage_6( int &stage, int chtype ) {
 }
 
 bool stage_7( int &stage, int chtype ) {
-    if( chtype == 1 || chtype == 8 ) stage = 17;
+    if( chtype == 1 || chtype == 8 ) stage = 15;
     else return false;
     return true;
 }
 
 bool stage_8( int &stage, int chtype ) {
-    if( chtype == 2 || chtype == 8 ) stage = 17;
+    if( chtype == 2 || chtype == 8 ) stage = 15;
     else return false;
     return true;
 }
 
 bool stage_9( int &stage, int chtype ) {
-    if( 19 <= chtype && chtype <= 28 ) stage = 11;
-    else if( chtype == 1 || chtype == 2 ) stage = 10;
-    else if( chtype == 18 ) stage = 16;
+    if( chtype == 33 || chtype == 59 ) stage = 11;
+    else if( chtype == 18 ) stage = 10;
+    else if( 19 <= chtype && chtype <= 28 ) stage = 9;
     else return false;
     return true;
 }
 
 bool stage_10( int &stage, int chtype ) {
-    if( 19 <= chtype && chtype <= 28 ) stage = 11;
-    else if( chtype == 18 ) stage = 16;
+    if( chtype == 33 || chtype == 59 ) stage = 11;
+    else if( 19 <= chtype && chtype <= 28 ) stage = 10;
     else return false;
     return true;
 }
 
 bool stage_11( int &stage, int chtype ) {
-    if( chtype == 33 || chtype == 59 ) stage = 13;
-    else if( chtype == 18 ) stage = 12;
-    else if( 19 <= chtype && chtype <= 28 ) stage = 11;
-    else if( chtype == 14 ) stage = 17;
+    if( 19 <= chtype && chtype <= 28 ) stage = 13;
+    else if( chtype == 1 || chtype == 2 ) stage = 12;
     else return false;
     return true;
 }
 
 bool stage_12( int &stage, int chtype ) {
-    if( chtype == 33 || chtype == 59 ) stage = 13;
-    else if( 19 <= chtype && chtype <= 28 ) stage = 12;
-    else if( chtype == 14 ) stage = 17;
+    if( 19 <= chtype && chtype <= 28 ) stage = 13;
     else return false;
     return true;
 }
 
 bool stage_13( int &stage, int chtype ) {
-    if( 19 <= chtype && chtype <= 28 ) stage = 15;
-    else if( chtype == 1 || chtype == 2 ) stage = 14;
+    if( 19 <= chtype && chtype <= 28 ) stage = 13;
     else return false;
     return true;
 }
 
 bool stage_14( int &stage, int chtype ) {
-    if( 19 <= chtype && chtype <= 28 ) stage = 15;
+    if( 19 <= chtype && chtype <= 28 ) stage = 10;
     else return false;
     return true;
 }
 
 bool stage_15( int &stage, int chtype ) {
-    if( 19 <= chtype && chtype <= 28 ) stage = 15;
-    else if( chtype == 14 ) stage = 17;
-    else return false;
-    return true;
-}
-
-bool stage_16( int &stage, int chtype ) {
-    if( 19 <= chtype && chtype <= 28 ) stage = 12;
-    else return false;
-    return true;
-}
-
-bool stage_17( int &stage, int chtype ) {
     return false;
 }
 
@@ -260,8 +243,6 @@ bool excute( int &stage, char ch ) {
         case 13: flag = stage_13( stage, chtype ); break;
         case 14: flag = stage_14( stage, chtype ); break;
         case 15: flag = stage_15( stage, chtype ); break;
-        case 16: flag = stage_16( stage, chtype ); break;
-        case 17: flag = stage_17( stage, chtype ); break;
         default: flag = false;
     }
     return flag;

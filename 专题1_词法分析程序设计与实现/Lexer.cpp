@@ -1,8 +1,8 @@
 #include "lexer.h"
 
 bool isTerminalStage( int stage ) {
-    if( stage == 0 || stage == 4 || stage == 5 || stage == 10 ||
-        stage == 13 || stage == 14 || stage == 16 ) return false;
+    if( stage == 0 || stage == 4 || stage == 5 ||
+        ( 10 <= stage && stage <= 16 ) ) return false;
     return true;
 }
 
@@ -273,19 +273,19 @@ bool lineAnalyse( string &line, int &colNo, string &errmsg, vector<PIS> &vTable 
     char prech;
     string str = "";
     while( colNo < len ) {
-        st = colNo; prestage = -1;
+        st = colNo; prestage = -1; prech = ' ';
         while( colNo <= len && colNo - st + 1 <= WORDMAXLEN ) {
             prestage = stage;
             flag = excute( stage, line[colNo] );
             if( !flag ) break;
-            str += line[colNo];
+            if( characterType( line[colNo] ) > 0 ) str += line[colNo];
+            prech = line[colNo];
             ++colNo;
         }
-        if( !isTerminalStage( prestage ) && !characterType( prech ) ) {
+        if( !isTerminalStage( prestage ) ) {
             errmsg = str + " is illegal.";
             return false;
         }
-        if( prestage == 0 && characterType( prech ) == 0 ) continue;
         addPair( str, vTable );
         stage = 0; str = "";
     }

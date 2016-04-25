@@ -14,7 +14,7 @@ void errMsg( string filename, int rowNo, int colNo, string errmsg ) {
     printf( "%s:%d:%d error: %s\n", filename.c_str(), rowNo, colNo, errmsg.c_str() );
     return ;
 }
-
+/*
 void spaceProcess( char *line ) {
     int len = strlen( line ), pos = 0;
     for( int i = 0; i < len; ++i ) {
@@ -23,7 +23,7 @@ void spaceProcess( char *line ) {
     line[pos] = 0;
     return ;
 }
-
+*/
 bool noteProcess( string &str, bool &noteflag, string &errmsg ) {
     while( true ) {
         int p1 = str.find( "//" );
@@ -83,7 +83,7 @@ int main( int argc, char **argv ) {
         vTable.clear();
         int len = strlen( line );
         if( line[len - 1] == '\n' ) line[len - 1] = 0;
-        spaceProcess( line );
+//        spaceProcess( line );
         colNo = 0;
         string str = line;
         str = str.substr( 0, LINEMAXLEN );

@@ -270,6 +270,7 @@ bool excute( int &stage, char ch ) {
 bool lineAnalyse( string &line, int &colNo, string &errmsg, vector<PIS> &vTable ) {
     int stage = 0, st = 0, prestage = 0, len = line.length();
     bool flag = true;
+    char prech;
     string str = "";
     while( colNo < len ) {
         st = colNo; prestage = -1;
@@ -280,10 +281,11 @@ bool lineAnalyse( string &line, int &colNo, string &errmsg, vector<PIS> &vTable 
             str += line[colNo];
             ++colNo;
         }
-        if( !isTerminalStage( prestage ) ) {
+        if( !isTerminalStage( prestage ) && !characterType( prech ) ) {
             errmsg = str + " is illegal.";
             return false;
         }
+        if( prestage == 0 && characterType( prech ) == 0 ) continue;
         addPair( str, vTable );
         stage = 0; str = "";
     }

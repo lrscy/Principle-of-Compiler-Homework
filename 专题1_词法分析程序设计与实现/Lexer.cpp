@@ -259,15 +259,14 @@ bool lineAnalyse( string &line, int &colNo, string &errmsg, vector<PIS> &vTable 
             prestage = stage;
             flag = excute( stage, line[colNo] );
             if( !flag ) break;
-            str += line[colNo];
+            if( characterType( line[colNo] ) > 0 ) str += line[colNo];
             prech = line[colNo];
             ++colNo;
         }
-        if( !isTerminalStage( prestage ) && !characterType( prech ) ) {
+        if( !isTerminalStage( prestage ) ) {
             errmsg = str + " is illegal.";
             return false;
         }
-        if( prestage == 0 && characterType( prech ) == 0 ) continue;
         addPair( str, vTable );
         stage = 0; str = "";
     }

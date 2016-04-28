@@ -500,6 +500,7 @@ bool lineAnalyse( string &line, int &colNo, string &errmsg, vector<PIS> &vTable 
             ++colNo;
         }
         if( !isTerminalStage( prestage ) ) {
+            if( str.length() == 0 ) str += line[colNo];
             errmsg = str + " is illegal.";
             return false;
         }

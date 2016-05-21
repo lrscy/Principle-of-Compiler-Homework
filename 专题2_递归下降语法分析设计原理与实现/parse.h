@@ -7,4 +7,4 @@ const int MAXLEN = 255;
 
 bool Parse( string str, string &emsg, int &epos );
 
-#endif
+#endif // PARSE

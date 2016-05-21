@@ -90,6 +90,7 @@ void print( FILE *fp, vector<PIS> &vTable ) {
     for( int i = 0; i < vTable.size(); ++i ) {
         fprintf( fp, "( %d, %s )\n", vTable[i].first, vTable[i].second.c_str() );
     }
+    fprintf( fp, "#\n" );
     return ;
 }
 

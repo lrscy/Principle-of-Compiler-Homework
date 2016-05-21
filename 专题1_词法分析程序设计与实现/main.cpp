@@ -1,11 +1,11 @@
 #include "lexer.h"
 
 /*
- * ¹¦ÄÜ£º
- *  µÃµ½Êä³öÎÄ¼şÃû
- * ´«Èë²ÎÊı£ºinputname:Ğè´¦ÀíµÄÎÄ¼şµÄÎÄ¼şÃû
- * ´«³ö²ÎÊı£ºoutputname:Êä³öÎÄ¼şµÄÎÄ¼şÃû
- * ·µ»ØÖµ£º£¨ÎŞ£©
+ * åŠŸèƒ½ï¼š
+ *  å¾—åˆ°è¾“å‡ºæ–‡ä»¶å
+ * ä¼ å…¥å‚æ•°ï¼šinputname:éœ€å¤„ç†çš„æ–‡ä»¶çš„æ–‡ä»¶å
+ * ä¼ å‡ºå‚æ•°ï¼šoutputname:è¾“å‡ºæ–‡ä»¶çš„æ–‡ä»¶å
+ * è¿”å›å€¼ï¼šï¼ˆæ— ï¼‰
  */
 void getOutputName( char *inputName, char *outputName ) {
     int len = strlen( inputName );
@@ -18,15 +18,15 @@ void getOutputName( char *inputName, char *outputName ) {
 }
 
 /*
- * ¹¦ÄÜ£º
- *  ÏòÆÁÄ»Êä³ö´íÎóĞÅÏ¢
- * ´«Èë²ÎÊı£º 
- *  filename:ÕıÔÚ´¦ÀíµÄÎÄ¼şµÄÎÄ¼şÃû³Æ
- *  rowNo:³ö´íĞĞ
- *  colNo:³ö´íÁĞ
- *  errmsg:´íÎóĞÅÏ¢
- * ´«³ö²ÎÊı£º£¨ÎŞ£©
- * ·µ»ØÖµ£º£¨ÎŞ£©
+ * åŠŸèƒ½ï¼š
+ *  å‘å±å¹•è¾“å‡ºé”™è¯¯ä¿¡æ¯
+ * ä¼ å…¥å‚æ•°ï¼š 
+ *  filename:æ­£åœ¨å¤„ç†çš„æ–‡ä»¶çš„æ–‡ä»¶åç§°
+ *  rowNo:å‡ºé”™è¡Œ
+ *  colNo:å‡ºé”™åˆ—
+ *  errmsg:é”™è¯¯ä¿¡æ¯
+ * ä¼ å‡ºå‚æ•°ï¼šï¼ˆæ— ï¼‰
+ * è¿”å›å€¼ï¼šï¼ˆæ— ï¼‰
  */
 void errMsg( string filename, int rowNo, int colNo, string errmsg ) {
     printf( "%s:%d:%d error: %s\n", filename.c_str(), rowNo, colNo, errmsg.c_str() );
@@ -34,16 +34,16 @@ void errMsg( string filename, int rowNo, int colNo, string errmsg ) {
 }
 
 /*
- * ¹¦ÄÜ£º
- *  Ô¤´¦Àí£¬É¾³ı×Ö·û´®ÄÚ×¢ÊÍ
- * ´«Èë²ÎÊı£º 
- *  str:Ğè´¦ÀíµÄ×Ö·û´®
- *  Noteflag:¸Ã×Ö·û´®ÊÇ·ñ´¦ÓÚ¶àĞĞ×¢ÊÍÖĞ
- * ´«³ö²ÎÊı£º
- *  str:´¦Àí¹ıµÄ×Ö·û´®
- *  noteflag:µ±Ç°ĞĞÊÇ·ñ´¦ÓÚ¶àĞĞ×¢ÊÍÖĞ
- * ·µ»ØÖµ£º
- *  ÊÇ·ñ³É¹¦´¦Àí¡£Èç¹û×¢ÊÍÆ¥ÅäÔò·µ»Øtrue£¬·ñÔò·µ»Øfalse¡£
+ * åŠŸèƒ½ï¼š
+ *  é¢„å¤„ç†ï¼Œåˆ é™¤å­—ç¬¦ä¸²å†…æ³¨é‡Š
+ * ä¼ å…¥å‚æ•°ï¼š 
+ *  str:éœ€å¤„ç†çš„å­—ç¬¦ä¸²
+ *  Noteflag:è¯¥å­—ç¬¦ä¸²æ˜¯å¦å¤„äºå¤šè¡Œæ³¨é‡Šä¸­
+ * ä¼ å‡ºå‚æ•°ï¼š
+ *  str:å¤„ç†è¿‡çš„å­—ç¬¦ä¸²
+ *  noteflag:å½“å‰è¡Œæ˜¯å¦å¤„äºå¤šè¡Œæ³¨é‡Šä¸­
+ * è¿”å›å€¼ï¼š
+ *  æ˜¯å¦æˆåŠŸå¤„ç†ã€‚å¦‚æœæ³¨é‡ŠåŒ¹é…åˆ™è¿”å›trueï¼Œå¦åˆ™è¿”å›falseã€‚
  */
 bool noteProcess( string &str, bool &noteflag, string &errmsg ) {
     while( true ) {
@@ -78,13 +78,13 @@ bool noteProcess( string &str, bool &noteflag, string &errmsg ) {
 }
 
 /*
- * ¹¦ÄÜ£º
- *  ½«½á¹ûÊä³öµ½ÎÄ¼şÖĞ
- * ´«Èë²ÎÊı£º 
- *  fp:Êä³öÎÄ¼şÖ¸Õë
- *  vTable:¶şÔªÊ½ĞòÁĞ
- * ´«³ö²ÎÊı£º£¨ÎŞ£©
- * ·µ»ØÖµ£º£¨ÎŞ£©
+ * åŠŸèƒ½ï¼š
+ *  å°†ç»“æœè¾“å‡ºåˆ°æ–‡ä»¶ä¸­
+ * ä¼ å…¥å‚æ•°ï¼š 
+ *  fp:è¾“å‡ºæ–‡ä»¶æŒ‡é’ˆ
+ *  vTable:äºŒå…ƒå¼åºåˆ—
+ * ä¼ å‡ºå‚æ•°ï¼šï¼ˆæ— ï¼‰
+ * è¿”å›å€¼ï¼šï¼ˆæ— ï¼‰
  */
 void print( FILE *fp, vector<PIS> &vTable ) {
     for( int i = 0; i < vTable.size(); ++i ) {
@@ -101,7 +101,7 @@ int main( int argc, char **argv ) {
     string errmsg;
     vector<PIS> vTable;
     
-    // ÎÄ¼şºó×º´¦Àí
+    // æ–‡ä»¶åç¼€å¤„ç†
     getOutputName( argv[1], outputName );
     finp = fopen( argv[1], "r" );
     foutp = fopen( outputName, "w" );
@@ -109,7 +109,7 @@ int main( int argc, char **argv ) {
     foutp = fopen( outputName, "a+" );
     getOutputName( argv[1], outputName );
 
-    // ĞĞ´¦Àí
+    // è¡Œå¤„ç†
     rowNo = 0;
     while( NULL != fgets( line, MAXLEN, finp ) ) {
         vTable.clear();
@@ -118,7 +118,7 @@ int main( int argc, char **argv ) {
         colNo = 0;
         string str = line;
         str = str.substr( 0, LINEMAXLEN );
-        // ×¢ÊÍÔ¤´¦Àí¼°´Ê·¨·ÖÎö
+        // æ³¨é‡Šé¢„å¤„ç†åŠè¯æ³•åˆ†æ
         if( !noteProcess( str, noteflag, errmsg ) ||
                 ( str.length() > 0 && !lineAnalyse( str, colNo, errmsg, vTable ) ) ) {
             flag = false;

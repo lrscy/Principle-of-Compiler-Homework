@@ -5,13 +5,13 @@ string errmsg;
 int errpos;
 
 /*
- * ¹¦ÄÜ£º
- *  ´æ´¢´íÎóÐÅÏ¢
- * ´«Èë²ÎÊý£º
- *  msg:´íÎóÐÅÏ¢
- * ´«³ö²ÎÊý£º
- *  pos:³ö´í±êÊ¶·ûÎª¸ÃÐÐµÚpos¸ö±êÊ¶·û
- * ·µ»ØÖµ£º£¨ÎÞ£©
+ * åŠŸèƒ½ï¼š
+ *  å­˜å‚¨é”™è¯¯ä¿¡æ¯
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  msg:é”™è¯¯ä¿¡æ¯
+ * ä¼ å‡ºå‚æ•°ï¼š
+ *  pos:å‡ºé”™æ ‡è¯†ç¬¦ä¸ºè¯¥è¡Œç¬¬posä¸ªæ ‡è¯†ç¬¦
+ * è¿”å›žå€¼ï¼šï¼ˆæ— ï¼‰
  */
 void Error( int &pos, string msg ) {
     errmsg = "expected " + msg;
@@ -22,14 +22,14 @@ void Error( int &pos, string msg ) {
 bool ProcessorE( int &pos );
 
 /*
- * ¹¦ÄÜ£º
- *  ·ÇÖÕ½á·ûFµÄ´¦Àí¹ý³Ì
- * ´«Èë²ÎÊý£º
- *  pos:µ±Ç°µÚpos¸ö±êÊ¶·û
- * ´«³ö²ÎÊý£º
- *  pos:µ±Ç°µÚpos¸ö±êÊ¶·û
- * ·µ»ØÖµ£º
- *  ÊÇ·ñ³É¹¦½âÎö¡£ÊÇÔò·µ»Øtrue£¬·ñÔò·µ»Øfalse¡£
+ * åŠŸèƒ½ï¼š
+ *  éžç»ˆç»“ç¬¦Fçš„å¤„ç†è¿‡ç¨‹
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  pos:å½“å‰ç¬¬posä¸ªæ ‡è¯†ç¬¦
+ * ä¼ å‡ºå‚æ•°ï¼š
+ *  pos:å½“å‰ç¬¬posä¸ªæ ‡è¯†ç¬¦
+ * è¿”å›žå€¼ï¼š
+ *  æ˜¯å¦æˆåŠŸè§£æžã€‚æ˜¯åˆ™è¿”å›žtrueï¼Œå¦åˆ™è¿”å›žfalseã€‚
  */
 bool ProcessorF( int &pos ) {
     if( vec[pos] != "(" ) {
@@ -45,14 +45,14 @@ bool ProcessorF( int &pos ) {
 }
 
 /*
- * ¹¦ÄÜ£º
- *  ·ÇÖÕ½á·ûAµÄ´¦Àí¹ý³Ì
- * ´«Èë²ÎÊý£º
- *  pos:µ±Ç°µÚpos¸ö±êÊ¶·û
- * ´«³ö²ÎÊý£º
- *  pos:µ±Ç°µÚpos¸ö±êÊ¶·û
- * ·µ»ØÖµ£º
- *  ÊÇ·ñ³É¹¦½âÎö¡£ÊÇÔò·µ»Øtrue£¬·ñÔò·µ»Øfalse¡£
+ * åŠŸèƒ½ï¼š
+ *  éžç»ˆç»“ç¬¦Açš„å¤„ç†è¿‡ç¨‹
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  pos:å½“å‰ç¬¬posä¸ªæ ‡è¯†ç¬¦
+ * ä¼ å‡ºå‚æ•°ï¼š
+ *  pos:å½“å‰ç¬¬posä¸ªæ ‡è¯†ç¬¦
+ * è¿”å›žå€¼ï¼š
+ *  æ˜¯å¦æˆåŠŸè§£æžã€‚æ˜¯åˆ™è¿”å›žtrueï¼Œå¦åˆ™è¿”å›žfalseã€‚
  */
 bool ProcessorA( int &pos ) {
     if( vec[pos] != "+" && vec[pos] != "-" ) { Error( pos, "+ or -" ); return false; }
@@ -61,14 +61,14 @@ bool ProcessorA( int &pos ) {
 }
 
 /*
- * ¹¦ÄÜ£º
- *  ·ÇÖÕ½á·ûMµÄ´¦Àí¹ý³Ì
- * ´«Èë²ÎÊý£º
- *  pos:µ±Ç°µÚpos¸ö±êÊ¶·û
- * ´«³ö²ÎÊý£º
- *  pos:µ±Ç°µÚpos¸ö±êÊ¶·û
- * ·µ»ØÖµ£º
- *  ÊÇ·ñ³É¹¦½âÎö¡£ÊÇÔò·µ»Øtrue£¬·ñÔò·µ»Øfalse¡£
+ * åŠŸèƒ½ï¼š
+ *  éžç»ˆç»“ç¬¦Mçš„å¤„ç†è¿‡ç¨‹
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  pos:å½“å‰ç¬¬posä¸ªæ ‡è¯†ç¬¦
+ * ä¼ å‡ºå‚æ•°ï¼š
+ *  pos:å½“å‰ç¬¬posä¸ªæ ‡è¯†ç¬¦
+ * è¿”å›žå€¼ï¼š
+ *  æ˜¯å¦æˆåŠŸè§£æžã€‚æ˜¯åˆ™è¿”å›žtrueï¼Œå¦åˆ™è¿”å›žfalseã€‚
  */
 bool ProcessorM( int &pos ) {
     if( vec[pos] != "*" && vec[pos] != "/" ) { Error( pos, "* or /" ); return false; }
@@ -77,14 +77,14 @@ bool ProcessorM( int &pos ) {
 }
 
 /*
- * ¹¦ÄÜ£º
- *  ·ÇÖÕ½á·ûT'µÄ´¦Àí¹ý³Ì
- * ´«Èë²ÎÊý£º
- *  pos:µ±Ç°µÚpos¸ö±êÊ¶·û
- * ´«³ö²ÎÊý£º
- *  pos:µ±Ç°µÚpos¸ö±êÊ¶·û
- * ·µ»ØÖµ£º
- *  ÊÇ·ñ³É¹¦½âÎö¡£ÊÇÔò·µ»Øtrue£¬·ñÔò·µ»Øfalse¡£
+ * åŠŸèƒ½ï¼š
+ *  éžç»ˆç»“ç¬¦T'çš„å¤„ç†è¿‡ç¨‹
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  pos:å½“å‰ç¬¬posä¸ªæ ‡è¯†ç¬¦
+ * ä¼ å‡ºå‚æ•°ï¼š
+ *  pos:å½“å‰ç¬¬posä¸ªæ ‡è¯†ç¬¦
+ * è¿”å›žå€¼ï¼š
+ *  æ˜¯å¦æˆåŠŸè§£æžã€‚æ˜¯åˆ™è¿”å›žtrueï¼Œå¦åˆ™è¿”å›žfalseã€‚
  */
 bool ProcessorTQ( int &pos ) {
     while( true ) {
@@ -95,14 +95,14 @@ bool ProcessorTQ( int &pos ) {
 }
 
 /*
- * ¹¦ÄÜ£º
- *  ·ÇÖÕ½á·ûTµÄ´¦Àí¹ý³Ì
- * ´«Èë²ÎÊý£º
- *  pos:µ±Ç°µÚpos¸ö±êÊ¶·û
- * ´«³ö²ÎÊý£º
- *  pos:µ±Ç°µÚpos¸ö±êÊ¶·û
- * ·µ»ØÖµ£º
- *  ÊÇ·ñ³É¹¦½âÎö¡£ÊÇÔò·µ»Øtrue£¬·ñÔò·µ»Øfalse¡£
+ * åŠŸèƒ½ï¼š
+ *  éžç»ˆç»“ç¬¦Tçš„å¤„ç†è¿‡ç¨‹
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  pos:å½“å‰ç¬¬posä¸ªæ ‡è¯†ç¬¦
+ * ä¼ å‡ºå‚æ•°ï¼š
+ *  pos:å½“å‰ç¬¬posä¸ªæ ‡è¯†ç¬¦
+ * è¿”å›žå€¼ï¼š
+ *  æ˜¯å¦æˆåŠŸè§£æžã€‚æ˜¯åˆ™è¿”å›žtrueï¼Œå¦åˆ™è¿”å›žfalseã€‚
  */
 bool ProcessorT( int &pos ) {
     if( vec[pos] != "i" && vec[pos] != "(" ) { Error( pos, "i or (" ); return false; }
@@ -112,14 +112,14 @@ bool ProcessorT( int &pos ) {
 }
 
 /*
- * ¹¦ÄÜ£º
- *  ·ÇÖÕ½á·ûE'µÄ´¦Àí¹ý³Ì
- * ´«Èë²ÎÊý£º
- *  pos:µ±Ç°µÚpos¸ö±êÊ¶·û
- * ´«³ö²ÎÊý£º
- *  pos:µ±Ç°µÚpos¸ö±êÊ¶·û
- * ·µ»ØÖµ£º
- *  ÊÇ·ñ³É¹¦½âÎö¡£ÊÇÔò·µ»Øtrue£¬·ñÔò·µ»Øfalse¡£
+ * åŠŸèƒ½ï¼š
+ *  éžç»ˆç»“ç¬¦E'çš„å¤„ç†è¿‡ç¨‹
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  pos:å½“å‰ç¬¬posä¸ªæ ‡è¯†ç¬¦
+ * ä¼ å‡ºå‚æ•°ï¼š
+ *  pos:å½“å‰ç¬¬posä¸ªæ ‡è¯†ç¬¦
+ * è¿”å›žå€¼ï¼š
+ *  æ˜¯å¦æˆåŠŸè§£æžã€‚æ˜¯åˆ™è¿”å›žtrueï¼Œå¦åˆ™è¿”å›žfalseã€‚
  */
 bool ProcessorEQ( int &pos ) {
     while( true ) {
@@ -130,14 +130,14 @@ bool ProcessorEQ( int &pos ) {
 }
 
 /*
- * ¹¦ÄÜ£º
- *  ·ÇÖÕ½á·ûEµÄ´¦Àí¹ý³Ì
- * ´«Èë²ÎÊý£º
- *  pos:µ±Ç°µÚpos¸ö±êÊ¶·û
- * ´«³ö²ÎÊý£º
- *  pos:µ±Ç°µÚpos¸ö±êÊ¶·û
- * ·µ»ØÖµ£º
- *  ÊÇ·ñ³É¹¦½âÎö¡£ÊÇÔò·µ»Øtrue£¬·ñÔò·µ»Øfalse¡£
+ * åŠŸèƒ½ï¼š
+ *  éžç»ˆç»“ç¬¦Eçš„å¤„ç†è¿‡ç¨‹
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  pos:å½“å‰ç¬¬posä¸ªæ ‡è¯†ç¬¦
+ * ä¼ å‡ºå‚æ•°ï¼š
+ *  pos:å½“å‰ç¬¬posä¸ªæ ‡è¯†ç¬¦
+ * è¿”å›žå€¼ï¼š
+ *  æ˜¯å¦æˆåŠŸè§£æžã€‚æ˜¯åˆ™è¿”å›žtrueï¼Œå¦åˆ™è¿”å›žfalseã€‚
  */
 bool ProcessorE( int &pos ) {
     if( vec[pos] != "i" && vec[pos] != "(" ) { Error( pos, "i or (" ); return false; }
@@ -147,15 +147,15 @@ bool ProcessorE( int &pos ) {
 }
 
 /*
- * ¹¦ÄÜ£º
- *  ½øÐÐ¸ÃÐÐµÄÓï·¨·ÖÎö
- * ´«Èë²ÎÊý£º
- *  str:¸ÃÐÐ×Ö·û´®
- * ´«³ö²ÎÊý£º
- *  emsg:³ö´íÐÅÏ¢
- *  epos:³ö´í±êÊ¶·ûÊ××Ö·ûËùÔÚÎ»ÖÃ
- * ·µ»ØÖµ£º
- *  ÊÇ·ñ³É¹¦½âÎö¡£ÊÇÔò·µ»Øtrue£¬·ñÔò·µ»Øfalse¡£
+ * åŠŸèƒ½ï¼š
+ *  è¿›è¡Œè¯¥è¡Œçš„è¯­æ³•åˆ†æž
+ * ä¼ å…¥å‚æ•°ï¼š
+ *  str:è¯¥è¡Œå­—ç¬¦ä¸²
+ * ä¼ å‡ºå‚æ•°ï¼š
+ *  emsg:å‡ºé”™ä¿¡æ¯
+ *  epos:å‡ºé”™æ ‡è¯†ç¬¦é¦–å­—ç¬¦æ‰€åœ¨ä½ç½®
+ * è¿”å›žå€¼ï¼š
+ *  æ˜¯å¦æˆåŠŸè§£æžã€‚æ˜¯åˆ™è¿”å›žtrueï¼Œå¦åˆ™è¿”å›žfalseã€‚
  */
 bool Parse( string str, string &emsg, int &epos ) {
     int pos = str.length();

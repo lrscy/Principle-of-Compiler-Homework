@@ -1,15 +1,15 @@
 #include "parse.h"
 
 /*
- * ¹¦ÄÜ£º
- *  ÏòÆÁÄ»Êä³ö´íÎóĞÅÏ¢
- * ´«Èë²ÎÊı£º 
- *  filename:ÕıÔÚ´¦ÀíµÄÎÄ¼şµÄÎÄ¼şÃû³Æ
- *  rowNo:³ö´íĞĞ
- *  colNo:³ö´íÁĞ
- *  errmsg:´íÎóĞÅÏ¢
- * ´«³ö²ÎÊı£º£¨ÎŞ£©
- * ·µ»ØÖµ£º£¨ÎŞ£©
+ * åŠŸèƒ½ï¼š
+ *  å‘å±å¹•è¾“å‡ºé”™è¯¯ä¿¡æ¯
+ * ä¼ å…¥å‚æ•°ï¼š 
+ *  filename:æ­£åœ¨å¤„ç†çš„æ–‡ä»¶çš„æ–‡ä»¶åç§°
+ *  rowNo:å‡ºé”™è¡Œ
+ *  colNo:å‡ºé”™åˆ—
+ *  errmsg:é”™è¯¯ä¿¡æ¯
+ * ä¼ å‡ºå‚æ•°ï¼šï¼ˆæ— ï¼‰
+ * è¿”å›å€¼ï¼šï¼ˆæ— ï¼‰
  */
 void errMsg( string filename, int nrow, int ncol, string errmsg ) {
     printf( "%s:%d:%d syntax error: %s\n", filename.c_str(), nrow, ncol, errmsg.c_str() );
@@ -22,16 +22,16 @@ int main( int argc, char **argv ) {
     int nrow = 0, ncol;
     FILE *finp;
     string errmsg;
-    // ´ò¿ªÎÄ¼ş
+    // æ‰“å¼€æ–‡ä»¶
     finp = fopen( argv[1], "r" );
 
-    // ĞĞ´¦Àí
+    // è¡Œå¤„ç†
     while( NULL != fgets( line, MAXLEN, finp ) ) {
         ++nrow; ncol = 0;
         int len = strlen( line );
         line[len - 1] = 0;
         --len;
-        // ĞĞ½âÎö
+        // è¡Œè§£æ
         if( !Parse( line, errmsg, ncol ) ) {
             errMsg( argv[1], nrow, ncol, errmsg );
             flag = false;

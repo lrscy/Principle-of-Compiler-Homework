@@ -19,20 +19,28 @@ void errMsg( string filename, int nrow, int ncol, string errmsg ) {
 int main( int argc, char **argv ) {
     bool flag = true;
     char str[MAXLEN], inputName[MAXLEN], outputName[MAXLEN], line[MAXLEN];
-    int nrow = 0, ncol;
+    int nrow = 0, ncol, tn;
     FILE *finp;
     string errmsg;
+    vector<PIS> vec;
+
+    init();
+
     // 打开文件
     finp = fopen( argv[1], "r" );
 
     // 行处理
     while( NULL != fgets( line, MAXLEN, finp ) ) {
+        vec.clear();
+        // 读入一行代码的二元式序列
+        do {
+            if( line[0] == '#' ) break;
+            sscanf( line, "(%d,%s)", &tn, str );
+            vec.push_back( make_pair( tn, str ) );
+        } while( NULL != fgets( line, MAXLEN, finp ) ); 
         ++nrow; ncol = 0;
-        int len = strlen( line );
-        line[len - 1] = 0;
-        --len;
         // 行解析
-        if( !Parse( line, errmsg, ncol ) ) {
+        if( !Parse( vec, ncol, errmsg ) ) {
             errMsg( argv[1], nrow, ncol, errmsg );
             flag = false;
         }

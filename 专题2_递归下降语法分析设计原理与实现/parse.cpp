@@ -3,6 +3,26 @@
 vector<string> vec;
 string errmsg;
 int errpos;
+string ntable[MAXN];
+
+/*
+ * 功能：
+ *  初始化关键字及识别码对照表
+ * 传入参数：（无）
+ * 传出参数：（无）
+ * 返回值：（无）
+ */
+void init() {
+    FILE *finp = fopen( "ntable.txt", "r" );
+    char line[MAXLEN], str[MAXLEN];
+    int tn;
+    while( NULL != fgets( line, MAXLEN, finp ) ) {
+        sscanf( line, "%s%d", str, &tn );
+        ntable[tn] = str;
+    }
+    fclose( finp );
+    return ;
+}
 
 /*
  * 功能：
@@ -150,32 +170,23 @@ bool ProcessorE( int &pos ) {
  * 功能：
  *  进行该行的语法分析
  * 传入参数：
- *  str:该行字符串
+ *  vec:该行字符串的二元式序列
  * 传出参数：
- *  emsg:出错信息
  *  epos:出错标识符首字符所在位置
+ *  emsg:出错信息
  * 返回值：
  *  是否成功解析。是则返回true，否则返回false。
  */
-bool Parse( string str, string &emsg, int &epos ) {
-    int pos = str.length();
-    while( str[--pos] == ' ' );
-    str = str.substr( 0, pos + 1 );
-    pos = 0;
-    vec.clear();
-    for( int i = 0; i < str.length(); ++i ) {
-        if( str[i] == ' ' ) {
-            vec.push_back( str.substr( pos, i - pos ) );
-            while( str[i + 1] == ' ' && i + 1 < str.length() ) ++i;
-            pos = i + 1;
-        }
+bool Parse( vector<PIS> &veco, int &epos, string &emsg ) {
+    for( vector<PIS>::iterator it = veco.begin(); it != veco.end(); ++it ) {
+        if( it->first < 40 ) vec.push_back( ntable[it->first] );
+        else vec.push_back( it->second );
     }
-    vec.push_back( str.substr( pos, str.length() - pos ) );
     vec.push_back( "#" );
-    pos = 0;
+    int pos = 0;
     if( !ProcessorE( pos ) ) {
         emsg = errmsg;
-        epos = str.find( vec[errpos] ) + 1;
+        epos = errpos + 1;
         return false;
     }
     return true;

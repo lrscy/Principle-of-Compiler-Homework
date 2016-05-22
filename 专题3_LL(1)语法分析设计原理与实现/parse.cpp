@@ -59,7 +59,7 @@ void init() {
  * 返回值：
  *  是否成功解析。是则返回true，否则返回false。
  */
-bool Parse( const vector<PIS> &vec, int &ncol, string &errmsg ) {
+bool Parse( const vector<PIS> &vec, int &ncol ) {
     string st[MAXLEN];
     int top = 0;
     st[top++] = "E";
@@ -85,7 +85,7 @@ bool Parse( const vector<PIS> &vec, int &ncol, string &errmsg ) {
         }
         --top;
         if( ( top == 0 && i != vec.size() - 1 ) ) flag = false;
-        if( !flag ) { ncol = i; errmsg = ""; break; }
+        if( !flag ) { ncol = i; break; }
     }
     return flag;
 }

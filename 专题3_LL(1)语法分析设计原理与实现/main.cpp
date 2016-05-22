@@ -7,12 +7,11 @@
  *  filename:正在处理的文件的文件名称
  *  rowNo:出错行
  *  colNo:出错列
- *  errmsg:错误信息
  * 传出参数：（无）
  * 返回值：（无）
  */
-void errMsg( string filename, int rowNo, int colNo, string errmsg ) {
-    printf( "%s:%d:%d error: %s\n", filename.c_str(), rowNo, colNo, errmsg.c_str() );
+void errMsg( string filename, int rowNo, int colNo ) {
+    printf( "%s:%d:%d syntax error!\n", filename.c_str(), rowNo, colNo );
     return ;
 }
 
@@ -22,10 +21,10 @@ int main( int argc, char **argv ) {
     int type, nrow, ncol;
     bool flag = true;
     vector<PIS> vec;
-    string errmsg;
 
     init();
 
+    // 打开文件
     finp = fopen( argv[1], "r" );
     
     nrow = 0;
@@ -38,15 +37,15 @@ int main( int argc, char **argv ) {
             sscanf( line, "(%d,%s)", &type, str );
             vec.push_back( make_pair( type, str ) );
         } while( NULL != fgets( line, MAXLEN, finp ) );
-        ncol = 0;
+        ++nrow; ncol = 0;
         // 行解析
-        if( !Parse( vec, ncol, errmsg ) ) {
+        if( !Parse( vec, ncol ) ) {
             flag = false;
-            errMsg( argv[1], nrow, ncol, errmsg );
+            errMsg( argv[1], nrow, ncol );
         }
-        if( !flag ) puts( "Syntax Error!" );
-        else puts( "Program OK!" );
     }
+    if( !flag ) puts( "Syntax Error!" );
+    else puts( "Program OK!" );
     fclose( finp );
     return 0;
 }

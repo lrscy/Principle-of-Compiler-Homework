@@ -8,6 +8,6 @@ const int MAXN = 100;
 const int MAXLEN = 255;
 
 void init();
-bool Parse( const vector<PIS> &vec, int &ncol, string &errmsg );
+bool Parse( const vector<PIS> &vec, int &ncol );
 
 #endif // PARSE

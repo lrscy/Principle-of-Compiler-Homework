@@ -1,9 +1,9 @@
-all: parse.o parsemain.o
+all: parse.o parseProcessor.o
 
-parse.o: parse.cpp parse.h
+parseProcessor.o: parseProcessor.cpp parseProcessor.h
 	g++ -std=c++11 -O2 -c $<
 
-parsemain.o: parsemain.cpp parse.h
+parse.o: parse.cpp parse.h parseProcessor.h
 	g++ -std=c++11 -O2 -c $<
 
 clean:

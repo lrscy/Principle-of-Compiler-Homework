@@ -63,7 +63,7 @@ bool sentenceAnalysis( vector<PIS> &vec, int &ncol ) {
             ta = mpVt[st[pos]];
             if( ta == 0 ) ta = mpVt[st[--pos]];
             // 算符优先矩阵中该点位空则报错
-            if( table[ta][tb] == 0 ) { flag = false; break; }
+            if( ta == 0 || table[ta][tb] == 0 ) { flag = false; break; }
             // 如果是栈顶终结符<=输入终结符
             if( table[ta][tb] == 1 || table[ta][tb] == 2 ) break;
             // 寻找最左素短语
@@ -81,5 +81,6 @@ bool sentenceAnalysis( vector<PIS> &vec, int &ncol ) {
         st[top++] = tstr;
         if( !flag ) { ncol = i + 1; break; }
     }
+    if( top > 3 ) flag = false;
     return flag;
 }

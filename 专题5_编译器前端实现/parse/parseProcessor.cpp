@@ -109,9 +109,8 @@ bool ProcessorM( int &pos ) {
 bool ProcessorTQ( int &pos ) {
     while( true ) {
         if( vec[pos] != "*" && vec[pos] != "/" ) {
-            if( vec[pos] != "+" && vec[pos] != "-" && vec[pos] != "#" &&
-                    vec[pos] != "*" && vec[pos] != "-" ) {
-                Error( pos, "+ or - or * or /" );
+            if( vec[pos] != "+" && vec[pos] != "-" && vec[pos] != "#" && vec[pos] != ")" ) {
+                Error( pos, "+ or - or )" );
                 return false;
             }
             return true;

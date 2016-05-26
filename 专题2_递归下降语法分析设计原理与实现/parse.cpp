@@ -108,7 +108,14 @@ bool ProcessorM( int &pos ) {
  */
 bool ProcessorTQ( int &pos ) {
     while( true ) {
-        if( vec[pos] != "*" && vec[pos] != "/" ) return true;
+        if( vec[pos] != "*" && vec[pos] != "/" ) {
+            if( vec[pos] != "+" && vec[pos] != "-" && vec[pos] != "#" &&
+                    vec[pos] != "*" && vec[pos] != "-" ) {
+                Error( pos, "+ or - or * or /" );
+                return false;
+            }
+            return true;
+        }
         if( !ProcessorM( pos ) ) return false;
         if( !ProcessorF( pos ) ) return false;
     }
@@ -143,7 +150,10 @@ bool ProcessorT( int &pos ) {
  */
 bool ProcessorEQ( int &pos ) {
     while( true ) {
-        if( vec[pos] != "+" && vec[pos] != "-" ) return true;
+        if( vec[pos] != "+" && vec[pos] != "-" ) {
+            if( vec[pos] != ")" && vec[pos] != "#" ) { Error( pos, ")" ); return false; }
+            return true;
+        }
         if( !ProcessorA( pos ) ) return false;
         if( !ProcessorT( pos ) ) return false;
     }
@@ -178,6 +188,7 @@ bool ProcessorE( int &pos ) {
  *  是否成功解析。是则返回true，否则返回false。
  */
 bool Parse( vector<PIS> &veco, int &epos, string &emsg ) {
+    vec.clear();
     for( vector<PIS>::iterator it = veco.begin(); it != veco.end(); ++it ) {
         if( it->first < 40 ) vec.push_back( ntable[it->first] );
         else vec.push_back( it->second );

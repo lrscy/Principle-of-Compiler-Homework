@@ -110,7 +110,7 @@ bool ProcessorTQ( int &pos ) {
     while( true ) {
         if( vec[pos] != "*" && vec[pos] != "/" ) {
             if( vec[pos] != "+" && vec[pos] != "-" && vec[pos] != "#" && vec[pos] != ")" ) {
-                Error( pos, "+ or - or )" );
+                Error( pos, "+ or - or * or / or )" );
                 return false;
             }
             return true;
@@ -150,7 +150,7 @@ bool ProcessorT( int &pos ) {
 bool ProcessorEQ( int &pos ) {
     while( true ) {
         if( vec[pos] != "+" && vec[pos] != "-" ) {
-            if( vec[pos] != ")" && vec[pos] != "#" ) { Error( pos, ")" ); return false; }
+            if( vec[pos] != ")" && vec[pos] != "#" ) { Error( pos, "+ or - or )" ); return false; }
             return true;
         }
         if( !ProcessorA( pos ) ) return false;

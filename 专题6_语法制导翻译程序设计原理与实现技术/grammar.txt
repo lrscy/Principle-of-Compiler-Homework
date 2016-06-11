@@ -1,0 +1,11 @@
+2 S A
+4 A V = E
+4 E E + T
+4 E E - T
+2 E T
+4 T T * F
+4 T T / F
+2 T F
+4 F ( E )
+2 F i
+2 V i

@@ -63,6 +63,8 @@ bool sentenceAnalysis( vector<PIS> vec, int &ecol ) {
     int top = 0, tn, len, ncol;
     PSI tpsi;
     sign[top] = "#"; status[top] = 0; ++top;
+    for( int i = 0; i < top; ++i ) cout << sign[i] << " "; cout << endl;
+    for( int i = 0; i < top; ++i ) cout << status[i] << " "; cout << endl;
     for( int i = 0; i < vec.size(); ++i ) {
         tn = vec[i].first;
         if( tn < 40 ) str = ntable[tn];
@@ -91,6 +93,8 @@ bool sentenceAnalysis( vector<PIS> vec, int &ecol ) {
             if( tpsi.first != "S" && tpsi.first != "A" ) { ecol = i; return false; }
             sign[top] = tstr; status[top] = tpsi.second; ++top;
         }
+    for( int i = 0; i < top; ++i ) cout << sign[i] << " "; cout << endl;
+    for( int i = 0; i < top; ++i ) cout << status[i] << " "; cout << endl;
     }
     return true;
 }

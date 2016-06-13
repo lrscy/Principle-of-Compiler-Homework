@@ -4,6 +4,8 @@ map<string, int> mp;
 PSI table[MAXN][MAXN];
 string ntable[MAXN];
 vector<string> grammar[MAXN];
+string valVn[MAXN][MAXN];
+int topVn[MAXN];
 
 void init() {
     char str[MAXN], c;
@@ -53,11 +55,68 @@ void init() {
         ntable[n] = str;
     }
     fclose( fp );
+    memset( topVn, 0, sizeof( topVn ) );
     return ;
 }
 
-//bool sentenceAnalysis( vector<PIS> vec, int &ecol, vector<Node> &gen ) {
-bool sentenceAnalysis( vector<PIS> vec, int &ecol ) {
+string newTemp() {
+    static int No = 1;
+    char str[MAXN];
+    sprintf( str, "T%d", No++ );
+    return str;
+}
+
+void generate( int no, vector<Node> &vecGen ) {
+    string tstr;
+    switch( no ) {
+        case 1: break;
+        case 2:
+            vecGen.push_back( Node( "=", valVn[2][topVn[2] - 1], "-", valVn[3][topVn[3] - 1] ) );
+            break;
+        case 3:
+            tstr = newTemp();
+            vecGen.push_back( Node( "+", valVn[3][topVn[3] - 1], valVn[4][topVn[4] - 1], tstr ) );
+            --topVn[3]; --topVn[4]; valVn[3][topVn[3]++] = tstr;
+            break;
+        case 4:
+            tstr = newTemp();
+            vecGen.push_back( Node( "-", valVn[3][topVn[3] - 1], valVn[4][topVn[4] - 1], tstr ) );
+            --topVn[3]; --topVn[4]; valVn[3][topVn[3]++] = tstr;
+            break;
+        case 5:
+            valVn[3][topVn[3]++] = valVn[4][topVn[4] - 1];
+            --topVn[4];
+            break;
+        case 6:
+            tstr = newTemp();
+            vecGen.push_back( Node( "*", valVn[4][topVn[4] - 1], valVn[5][topVn[5] - 1], tstr ) );
+            --topVn[4]; --topVn[5]; valVn[4][topVn[4]++] = tstr;
+            break;
+        case 7:
+            tstr = newTemp();
+            vecGen.push_back( Node( "/", valVn[4][topVn[4] - 1], valVn[5][topVn[5] - 1], tstr ) );
+            --topVn[4]; --topVn[5]; valVn[4][topVn[4]++] = tstr;
+            break;
+        case 8:
+            valVn[4][topVn[4]++] = valVn[5][topVn[5] - 1];
+            --topVn[5];
+            break;
+        case 9:
+            valVn[5][topVn[5]++] = valVn[3][topVn[3] - 1];
+            --topVn[3];
+            break;
+        case 10:
+            valVn[5][topVn[5]++] = "i";
+            break;
+        case 11:
+            valVn[2][topVn[2]++] = "i";
+            break;
+    }
+    return ;
+}
+
+bool sentenceAnalysis( vector<PIS> vec, int &ecol, vector<Node> &vecGen ) {
+//bool sentenceAnalysis( vector<PIS> vec, int &ecol ) {
     string sign[MAXN], str, tstr;
     int status[MAXN];
     int top = 0, tn, len, ncol;
@@ -83,7 +142,7 @@ bool sentenceAnalysis( vector<PIS> vec, int &ecol ) {
         if( tpsi.first == "R" ) {
             --i;
             tn = tpsi.second;
-            ;
+            generate( tn, vecGen );
             tstr = grammar[tn][0];
             len = grammar[tn].size() - 1;
             top -= len;

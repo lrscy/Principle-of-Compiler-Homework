@@ -7,6 +7,13 @@ vector<string> grammar[MAXN];
 string valVn[MAXN][MAXN];
 int topVn[MAXN];
 
+/*
+ * 功能：
+ *  初始化SLR(1)分析表，非终结符值栈（顶），关键字及识别码对照表，离散化（非）终结符
+ * 传入参数：（无）
+ * 传出参数：（无）
+ * 返回值：（无）
+ */
 void init() {
     char str[MAXN], c;
     FILE *fp;
@@ -33,7 +40,7 @@ void init() {
                 case '-': 
                     table[i][j] = make_pair( "-", 0 );
                     break;
-                default:
+                default:    // 将GOTO函数解析成ACTION的S操作，便于后续处理
                     sscanf( str, "%d", &n );
                     table[i][j] = make_pair( "S", n );
             }
@@ -59,6 +66,13 @@ void init() {
     return ;
 }
 
+/*
+ * 功能：
+ *  生成新临时变量
+ * 传入参数：（无）
+ * 传出参数：（无）
+ * 返回值：新临时变量名
+ */
 string newTemp() {
     static int No = 1;
     char str[MAXN];
@@ -66,6 +80,15 @@ string newTemp() {
     return str;
 }
 
+/*
+ * 功能：
+ *  根据规约式生成相应四元式
+ * 传入参数：
+ *  no: 规约项
+ * 传出参数：
+ *  vecGen: 四元式序列
+ * 返回值：（无）
+ */
 void generate( int no, vector<Node> &vecGen ) {
     string tstr;
     switch( no ) {
@@ -115,45 +138,60 @@ void generate( int no, vector<Node> &vecGen ) {
     return ;
 }
 
-bool sentenceAnalysis( vector<PIS> vec, int &ecol, vector<Node> &vecGen ) {
-//bool sentenceAnalysis( vector<PIS> vec, int &ecol ) {
+/*
+ * 功能：
+ *  对每行进行分析处理并生成四元式序列
+ * 传入参数：
+ *  vec: 输入二元式
+ * 传出参数：
+ *  ecol: 出错标识符位置
+ *  vecGen: 四元式序列
+ * 返回值：
+ *  是否成功解析。是则返回true，否则返回false。
+ */
+bool sentenceAnalysis( vector<PIS> &vec, int &ecol, vector<Node> &vecGen ) {
     string sign[MAXN], str, tstr;
     int status[MAXN];
     int top = 0, tn, len, ncol;
     PSI tpsi;
     sign[top] = "#"; status[top] = 0; ++top;
-    for( int i = 0; i < top; ++i ) cout << sign[i] << " "; cout << endl;
-    for( int i = 0; i < top; ++i ) cout << status[i] << " "; cout << endl;
     for( int i = 0; i < vec.size(); ++i ) {
+        // 获取二元式中真实值
         tn = vec[i].first;
         if( tn < 40 ) str = ntable[tn];
         else str = vec[i].second;
         ncol = mp[str];
         if( ncol == 0 ) { ecol = i; return false; }
         tpsi = table[status[top - 1]][ncol];
+        // 分析表中该位置为 空
         if( tpsi.first == "-" ) { ecol = i; return false; }
+        // 分析表中该位置为 acc
         if( tpsi.first == "A" ) {
             if( i != vec.size() - 1 ) { ecol = i; return false; }
             break;
         }
+        // 分析表中该位置为 S* 状态转移操作
         if( tpsi.first == "S" ) {
             sign[top] = str; status[top] = tpsi.second; ++top;
         }
+        // 分析表中该位置为 R* 即规约操作
         if( tpsi.first == "R" ) {
             --i;
             tn = tpsi.second;
+            // 生成四元式
             generate( tn, vecGen );
+            // 规约操作
             tstr = grammar[tn][0];
             len = grammar[tn].size() - 1;
             top -= len;
+            // 忽略扩展部分的规约操作
             if( tstr == "S" ) continue;
             if( top <= 0 ) { ecol = i; return false; }
             tpsi = table[status[top - 1]][mp[tstr]];
             if( tpsi.first != "S" && tpsi.first != "A" ) { ecol = i; return false; }
+            // 将值入栈
             sign[top] = tstr; status[top] = tpsi.second; ++top;
         }
-    for( int i = 0; i < top; ++i ) cout << sign[i] << " "; cout << endl;
-    for( int i = 0; i < top; ++i ) cout << status[i] << " "; cout << endl;
     }
     return true;
 }

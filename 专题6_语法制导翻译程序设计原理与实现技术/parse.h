@@ -1,3 +1,6 @@
+#ifndef PARSE
+#define PARSE
+
 #include <iostream>
 #include <cstring>
 #include <cstdio>
@@ -18,5 +21,6 @@ struct Node {
 };
 
 void init();
-bool sentenceAnalysis( vector<PIS> vec, int &ecol, vector<Node> &vecGen );
-//bool sentenceAnalysis( vector<PIS> vec, int &ecol );
+bool sentenceAnalysis( vector<PIS> &vec, int &ecol, vector<Node> &vecGen );
+
+#endif

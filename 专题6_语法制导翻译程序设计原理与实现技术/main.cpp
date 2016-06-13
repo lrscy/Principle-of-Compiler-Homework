@@ -3,8 +3,10 @@
 /*
  * 功能：
  *  得到输出文件名
- * 传入参数：inputname:需处理的文件的文件名
- * 传出参数：outputname:输出文件的文件名
+ * 传入参数：
+ *  inputname:需处理的文件的文件名
+ * 传出参数：
+ *  outputname:输出文件的文件名
  * 返回值：（无）
  */
 void getOutputName( char *inputName, char *outputName ) {
@@ -21,9 +23,9 @@ void getOutputName( char *inputName, char *outputName ) {
  * 功能：
  *  向屏幕输出错误信息
  * 传入参数： 
- *  filename:正在处理的文件的文件名称
- *  rowNo:出错行
- *  colNo:出错列
+ *  filename: 正在处理的文件的文件名称
+ *  rowNo: 出错行
+ *  colNo: 出错列
  * 传出参数：（无）
  * 返回值：（无）
  */
@@ -34,10 +36,10 @@ void errMsg( string filename, int rowNo, int colNo ) {
 
 /*
  * 功能：
- *  将结果输出到文件中
+ *  将四元式结果输出到文件中
  * 传入参数： 
- *  fp:输出文件指针
- *  vTable:二元式序列
+ *  fp: 输出文件指针
+ *  vTable: 二元式序列
  * 传出参数：（无）
  * 返回值：（无）
  */
@@ -85,7 +87,6 @@ int main( int argc, char **argv ) {
         ++nrow; ncol = 0;
         // 行解析
         if( !sentenceAnalysis( vec, ncol, vecGen ) ) {
-//        if( !sentenceAnalysis( vec, ncol ) ) {
             flag = false;
             errMsg( argv[1], nrow, ncol + 1 );
         }
